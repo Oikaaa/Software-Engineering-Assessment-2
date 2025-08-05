@@ -1,5 +1,5 @@
 import time
-#It works the same as the one you see in the main.py, but I decided to make a sperate file so that the main one won't be so messy with alot of dialogue
+#It works the same as the first one you see in the main.py, but I decided to make a seperate file so that the main one won't be so messy with alot of dialogue
 Dialogue = {
     "Introduction":{
         1:{

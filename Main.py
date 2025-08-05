@@ -1,7 +1,8 @@
 # I HAVE NO MOUTH, BUT I HAVE TO SCREAM
 # Developed by: Jimmy (Huy Bao Thang)
 # NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
-# Last Update: 3/8/2025
+# Last Update: 5/8/2025
+# Guthub source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/blob/main/README.md
 # Setting: 
 # | Fifty years ago, the world was obliterated by The Soundfall — a resonance event of unknown origin. It ruptured memory, time, and sound itself. Survivors emerged unable to speak. Others became Hollowed, empty shells filled only with static.
 # | What remains are scattered Echo Zones — warped places where memory loops and whispers invade the mind. Entering them is the only way to recover who you are — but doing so brings you closer to something else...
