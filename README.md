@@ -3,7 +3,7 @@ If there is bug, just leave it or fix it on your own.
 This is a one time proejct so of course no changes after 100% done.
 ChatGPT generated the story, this project is 98% Human-code
 
-##I HAVE NO MOUTH, BUT I HAVE TO SCREAM (I know there's a game already existed, but the name jsut so fire that imma take it:))) 
+## I HAVE NO MOUTH, BUT I HAVE TO SCREAM (I know there's a game already existed, but the name jsut so fire that imma take it:))) 
 
 Developed by: Jmmy T 
 
