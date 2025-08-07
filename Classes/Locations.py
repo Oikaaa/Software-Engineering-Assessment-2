@@ -3,7 +3,6 @@ class Location:
         self.name = name
         self.description = descriprion
         self.character = character
-        pass
 
 class Maze():
     def __init__(self, map, description):

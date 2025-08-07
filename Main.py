@@ -2,7 +2,7 @@
 # Developed by: Jimmy (Huy Bao Thang)
 # NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
 # Last Update: 5/8/2025
-# Guthub source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/blob/main/README.md
+# Guthub source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/tree/main
 # Setting: 
 # | Fifty years ago, the world was obliterated by The Soundfall — a resonance event of unknown origin. It ruptured memory, time, and sound itself. Survivors emerged unable to speak. Others became Hollowed, empty shells filled only with static.
 # | What remains are scattered Echo Zones — warped places where memory loops and whispers invade the mind. Entering them is the only way to recover who you are — but doing so brings you closer to something else...
@@ -13,6 +13,7 @@
 # | 3/8/25: Completed The Flooded Bridge scenario gameplay, but not the dialogue
 # | 4/8/25: Started working on Church of the Shattered Voice scenario in the test.py file, but there is still some bug in it. The gameplay will be try to remember the line and later on spot the different if there are any (Even user can just scroll up)
 # | 5/8/25: Completed the scenario minigame; The game will show the line and you have to remember it, later on it will appear back randomly and you need to find the different.
+# | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
 
 # Modules
 import time
@@ -26,25 +27,25 @@ from Classes.Locations import Maze
 from Dialogue import print_dialogue
 player = Character(input('Your name is? '))
 
-print('\n\n\n\n\n\n\n\n\n\n\n') #This one just for line break so player can see the text clearer
+print('\n\n') #This one just for line break so player can see the text clearer
 time.sleep(3)
 
 # Prologue - This one is not in Dialogue.py is to show how the text printing works
 print('') #Just for line break
 print("-----I HAVE NO MOUTH, BUT I HAVE TO SCREAM-----")
 print('')
-time.sleep(8) #wait for 8 seconds
+time.sleep(5) #wait for 8 seconds
 print(" | They say the world ended with a sound.")
-time.sleep(5)
+time.sleep(3)
 print(" | A sound so loud it tore through minds like glass through flesh.")
-time.sleep(5)
+time.sleep(3)
 print(" | Cities fell silent in an instant. Voices vanished.")
-time.sleep(5)
+time.sleep(3)
 print(" | Now, the sky hums with static, and the ground remembers too much.")
 print('')
-time.sleep(8)
+time.sleep(5)
 print('You wake up alone in the ruins of a town once called Marrowpoint. The buildings are twisted, their steel frames grown like roots through the cracked streets. The sky above is a flickering sheet of red and black, as if reality is failing to load properly.')
-time.sleep(6)
+time.sleep(4)
 print("Your mouth is sealed.")
 time.sleep(3)
 print("Not with stitches.")
@@ -181,8 +182,10 @@ while next_step is not True:
                     print('As you carefully pick it up, a strong force pull you over...')
                     time.sleep(3)
                     print("[YOU'VE OBTAINED THE FRAGMENTS OF SIGHT]")
+                    player.add_fragment("Fragment Of Sight")
                     time.sleep(3)
                     print(' * You can now see for hint, but can only use it once per scenario...')
+                    next_step = True
                 else:
                     print("You failed to kill the creature... it ripped you in half, eat every flesh left on your body...")
                     time.sleep(5)
@@ -221,9 +224,41 @@ Ullin.add_dialogue('Are you—Are you the one who forgot?')
 Ullin.add_dialogue('Or the one who lied?')
 Ullin.add_dialogue('…Doesn’t matter. You’re all echoes in the end.')
 
+Ullin.add_dialogue("[Ullin] Then you're lighter than most, memory is ballast here.")#6
+Ullin.add_dialogue("[Ullin] Too much, and you sink.")#7
+
+Ullin.add_dialogue("[Ullin] They tried to dam the sound. It didn't work.")#8
+Ullin.add_dialogue("[Ullin] Now the water remembers everything. It reflects more than faces.")#9
+
+Ullin.add_dialogue("[Ullin] No. You walk. I listen.")#10
+Ullin.add_dialogue("[Ullin] You'll know the bridge by what it refuses to carry.")#11
+
 #-----------------------------------------
 #Dialogue here, another scenario stuuf
 print_dialogue("The Flooded Bridge")
+
+Ullin.print_dialogue(random.randint(0,4))
+
+print_dialogue("The Flooded Bridge Ullin")
+
+user_input = input("[1] I don't remember anything.\n[2] Why is it flooded?\n[3] Lead the way.")
+
+if user_input == "1":
+    Ullin.print_dialogue(6)
+    time.sleep(2)
+    Ullin.print_dialogue(7)
+elif user_input == "2":
+    Ullin.print_dialogue(8)
+    time.sleep(2)
+    Ullin.print_dialogue(9)
+elif user_input == "3":
+    Ullin.print_dialogue(10)
+    time.sleep(2)
+    Ullin.print_dialogue(11)
+else:
+    print("...")
+
+print_dialogue("The Flooded Bridge Narration")
 
 Room_1 = Maze("      ||   N   ||      \n" \
               "      ||       ||      \n" \
@@ -234,7 +269,7 @@ Room_1 = Maze("      ||   N   ||      \n" \
               "      ||       ||      \n" \
               "      ||       ||      \n" \
               "      ||       ||      \n" \
-              "         BEGIN          ", "A sound came from the west.")
+              "         BEGIN          ", "A sound came from the west.") #Room design
 
 Room_1_N = Maze("||=================||\n" \
                 "||                 ||\n" \
@@ -381,6 +416,12 @@ Room_3_S3.add_link(None)#
 
 current_room = Room_1
 
+print(f"=========== {TheFloodedHighway.name} =========== ")
+print(f" | {TheFloodedHighway.description}")
+print(" | A secret zone inside the bridge, where sound and effect are disturbed. The key to survive is, try to look for the cause, not the effect.")
+print('')
+print('/// OBJECTIVE: YOU NEED TO ESCAPE THE MAZE AND OBTAIN THE FRAGMENT ///')
+
 #------Functions----------
 def BugRoom(room):#When player try to hit the wall
     if room == None:
@@ -391,6 +432,12 @@ def BugRoom(room):#When player try to hit the wall
 
 def NextStep(room):#If they are in the right room
     if room == "Room_3_N":
+        print("You've found the right one... No thing is there, but a bright orb keep calling your name.")
+        time.sleep(1)
+        print("You slowly walk towards it, touch it with your own hand")
+        time.sleep(2)
+        print("[YOU'VE OBTAINED THE FRAGMENT OF MIND]")
+        player.add_fragment("Fragment Of Mind")
         return True
     return False
 
@@ -399,6 +446,7 @@ def TrickRoom(room):#If they are in the trick room
         print("Use flashlight?\n[1] Yes\n[2] No")
         userIn = input(">>> ")
         if userIn == "1":
+            #Found soemthing
             return print("The room was lit up by the strong light source emited from the shards... but you just find an old computer that make a delay sound.")
         else:
             return print("...")
@@ -437,11 +485,31 @@ while NextStep(current_room) is False:
     else:
         print("[Ullin] I don't think that's a way.")#They enter a random input
 
-#Dialogue here, then move up to next scenario
-
 #=========Church of the Shattered Voice=========
+Seren = NPC("Seren", "A mouthless nun of hymns.")
+TheChurchOfTheShatteredVoice = Location("The Church of the Shattered Voice", "A church where lost soul stay, only the soud of truth can pass. This is also home of Seren, a nun of hymns.", Seren)
 
-#Dialogue here
+print_dialogue("The Church Prologue") #And epilogue for the previous ep
+
+time.sleep(3)
+print(f"=========== {TheChurchOfTheShatteredVoice.name} =========== ")
+print(f" | {TheChurchOfTheShatteredVoice.description}")
+print(" | A home to many lost soul who passed without a sound, there is a nun who will testify the purity of echo through hymns. She will sing a poety. First time appear always true, second time can wrong...")
+print(f"Character: \n{Seren}, {Seren.description}")
+print('')
+print('/// OBJECTIVE: Complete Seren Challenge ///')
+time.sleep(2)
+counter = 0
+if player.trait == "Wary":
+    print("Your echo keep bumping, something is telling you, talking to you without a mouth.")
+    time.sleep(2)
+    print("[Your trait 'Wary' can have prevent false memory, which is powerful for this scenario, do you want to use ?]")
+    time.sleep(2)
+    user_input1 = input("[1] Yes (You will skip the scenario without playing it.)\n[2] No my memory is good enough to do this challenge.\n>>> ")
+    if user_input1 == "1":
+        counter = 6
+    else:
+        counter = 0
 
 #Try to remember the hymms, if it appear for the first time, it's always right, if it's appear a second time, it might changed, and you need to find is it right or not
 hymns = {
@@ -554,6 +622,7 @@ hymns = {
 }
 
 
+
 selected_hymns = [] # Empty list
 while len(selected_hymns) < 6: # While the selected random hymns is less than 6, keep doing it
     random_number = random.randint(1,17) # Generate a random number from 1 to 17
@@ -561,7 +630,7 @@ while len(selected_hymns) < 6: # While the selected random hymns is less than 6,
         selected_hymns.append(random_number) # Add it
     # If there is, skip it. Keep doing until there are 6 unique elements in the list
 
-#FUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONS
+#FUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONS vvvv
 def false_hymn_picker(hymn_id):
     if random.randint(0,1) == 1: # You will have to do the quiz
         TrueOrFalse = "1" # Value will only be 1 or 2 in string format
@@ -592,9 +661,11 @@ def hymn_display(hymns_list, counter):
 
 def clearOutput():
     os.system('cls' if os.name == "nt" else 'clear')
-#FUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONS
+#FUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONS ^^^^
 
-counter = 0
+print("Try to remember the hymms, if it appear for the first time, it's always right, if it's appear a second time, it might changed, and you need to find is it right or not")
+input("[Enter to continue]")
+
 displayed_hymn = []
 while counter < 6:
     hymn_id = hymn_display(selected_hymns, counter)
@@ -630,10 +701,14 @@ while len(displayed_hymn) > 0: # Final check for all remain challenge, if there 
             print("I don't think it's the answer...")
             clearOutput()
 
-#Dialogue here, then move up to next scenario'
+print("[YOU'VE OBTAINED THE FRAGMENT OF SOUL]")
+player.add_fragment("Fragment Of Soul")
 
 next_step = None
 while next_step == None:
     next_step = input('[Enter to continue]')
 
+#Dialogue
+
 #=========The Hollow Choir Zone=========
+# Should I skip this
