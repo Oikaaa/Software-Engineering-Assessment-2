@@ -31,3 +31,5 @@ NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
  
  | 5/8/25: Completed the scenario minigame; The game will show the line and you have to remember it, later on it will appear back randomly and you need to find the different. 
  
+| 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
+
