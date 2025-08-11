@@ -31,7 +31,7 @@ class Enemy(Character): # 2nd Son of Character
     def __init__(self, name, description):
         super().__init__(name)
         self.description = description
-        self.weekness = None
+        self.weakness = None
 
     def add_weekness(self, weekness):
-        self.weekness = weekness
+        self.weakness = weekness

@@ -2,7 +2,7 @@
 # Developed by: Jimmy (Huy Bao Thang)
 # NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
 # Last Update: 5/8/2025
-# Guthub source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/tree/main
+# Github source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/tree/main
 # Setting: 
 # | Fifty years ago, the world was obliterated by The Soundfall — a resonance event of unknown origin. It ruptured memory, time, and sound itself. Survivors emerged unable to speak. Others became Hollowed, empty shells filled only with static.
 # | What remains are scattered Echo Zones — warped places where memory loops and whispers invade the mind. Entering them is the only way to recover who you are — but doing so brings you closer to something else...
@@ -14,6 +14,7 @@
 # | 4/8/25: Started working on Church of the Shattered Voice scenario in the test.py file, but there is still some bug in it. The gameplay will be try to remember the line and later on spot the different if there are any (Even user can just scroll up)
 # | 5/8/25: Completed the scenario minigame; The game will show the line and you have to remember it, later on it will appear back randomly and you need to find the different.
 # | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
+# | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
 
 # Modules
 import time
@@ -124,15 +125,12 @@ print('')
 
 #=========Marrowpoint=========
 TheWather = Enemy('The Watcher', 'A tall, ragged figure who stands silently in the doorway, mouthless yet burdened with too many eyes that never blink.')
-MarrowpointStation = Location('Marrowpoint Station', 'An abandoned, half-collapsed train station filled with dead electronics, scavenged shelters, and chalk warnings.', TheWather)
 TheWather.add_weekness('Bright Echo')
+MarrowpointStation = Location('Marrowpoint Station', 'An abandoned, half-collapsed train station filled with dead electronics, scavenged shelters, and chalk warnings.', 'This place is ruled by the Watcher — a tall, ragged figure who stands silently in the doorway, mouthless yet burdened with too many eyes that never blink.', "YOU NEED TO KILL THE WATCHER AND ACCESS ITS FRAGMENT")
+MarrowpointStation.add_character(TheWather)
 
 time.sleep(3)
-print(f"=========== {MarrowpointStation.name} =========== ")
-print(f" | {MarrowpointStation.description}")
-print(" | This place is ruled by the Watcher — a tall, ragged figure who stands silently in the doorway, mouthless yet burdened with too many eyes that never blink.")
-print('')
-print('/// OBJECTIVE: YOU NEED TO KILL THE WATCHER AND ACCESS ITS FRAGMENT ///')
+MarrowpointStation.inform_scenario()
 
 next_step = False
 while next_step is not True:
@@ -216,7 +214,8 @@ while next_step == None:
 #=========The Flooded Bridge=========
 #If sound happens before the cause, go to the opposite way of it; if sound happens after the cause, follow the sound
 Ullin = NPC('Ullin', 'A rusted autonomous "Echo Crawler" bot who guides lost survivors through dangerous zones.')
-TheFloodedHighway = Location('The Flooded Highway', 'A sunken stretch of freeway where sound warps — echoes arrive before the noise, twisting reality. Hazardous audio illusions lure the unwary into the depths. Ullin, the crawler bot, haunts these drowned roads.', Ullin)
+TheFloodedHighway = Location('The Flooded Highway', 'A sunken stretch of freeway where sound warps — echoes arrive before the noise, twisting reality. Hazardous audio illusions lure the unwary into the depths. Ullin, the crawler bot, haunts these drowned roads.', 'A secret zone inside the bridge, where sound and effect are disturbed. The key to survive is, try to look for the cause, not the effect.', "YOU NEED TO ESCAPE THE MAZE AND OBTAIN THE FRAGMENT")
+TheFloodedHighway.add_character(Ullin)
 
 Ullin.add_dialogue('—–zzzzKHT—voiceprint not—ACKNOWLEDGED.')
 Ullin.add_dialogue('…wait. You. You’re... familiar. File not found. Still. You’re...you’re back.')
@@ -384,6 +383,11 @@ Room_2.add_link(Room_1)#
 Room_2.add_link(None)#
 Room_2.add_link(Room_2_S)#
 
+Room_2_S.add_link(None)#
+Room_2_S.add_link(None)#
+Room_2_S.add_link(Room_2)#
+Room_2_S.add_link(None)#
+
 Room_1_W.add_link(None)#
 Room_1_W.add_link(None)#
 Room_1_W.add_link(Room_2)#
@@ -416,11 +420,7 @@ Room_3_S3.add_link(None)#
 
 current_room = Room_1
 
-print(f"=========== {TheFloodedHighway.name} =========== ")
-print(f" | {TheFloodedHighway.description}")
-print(" | A secret zone inside the bridge, where sound and effect are disturbed. The key to survive is, try to look for the cause, not the effect.")
-print('')
-print('/// OBJECTIVE: YOU NEED TO ESCAPE THE MAZE AND OBTAIN THE FRAGMENT ///')
+TheFloodedHighway.inform_scenario()
 
 #------Functions----------
 def BugRoom(room):#When player try to hit the wall
@@ -441,15 +441,31 @@ def NextStep(room):#If they are in the right room
         return True
     return False
 
+Tricked_room_item = True
 def TrickRoom(room):#If they are in the trick room
     if room == Room_3_S3:
         print("Use flashlight?\n[1] Yes\n[2] No")
         userIn = input(">>> ")
         if userIn == "1":
             #Found soemthing
-            return print("The room was lit up by the strong light source emited from the shards... but you just find an old computer that make a delay sound.")
+            if Tricked_room_item == True:
+                print('You found a strong Dark Echo on the ground.')
+                time.sleep(2)
+                print('Take it?')
+                time.sleep(2)
+                picking = input('[1] Yes, pick it up \n[2] No, leave it on the ground\n>>> ')
+                time.sleep(1)
+                if picking == "1":
+                    print('You picked up the Echo, it swallow the darkness around it.')
+                    player.add_inventory("itemInArea")
+                    Tricked_room_item == False #Player already picked up the item
+                else:
+                    print('[...]')
+                return False
+            else:
+                return print("The room was lit up by the strong light source emited from the shards... but you just find an old computer that make a delay sound.")
         else:
-            return print("...")
+            return print("[...]")
 #------------------------
 
 while NextStep(current_room) is False:
@@ -487,17 +503,12 @@ while NextStep(current_room) is False:
 
 #=========Church of the Shattered Voice=========
 Seren = NPC("Seren", "A mouthless nun of hymns.")
-TheChurchOfTheShatteredVoice = Location("The Church of the Shattered Voice", "A church where lost soul stay, only the soud of truth can pass. This is also home of Seren, a nun of hymns.", Seren)
+TheChurchOfTheShatteredVoice = Location("The Church of the Shattered Voice", "A church where lost soul stay, only the soud of truth can pass. This is also home of Seren, a nun of hymns.", "A home to many lost soul who passed without a sound, there is a nun who will testify the purity of echo through hymns. She will sing a poety. First time appear always true, second time can wrong...", "Complete Seren Challenge")
 
 print_dialogue("The Church Prologue") #And epilogue for the previous ep
 
 time.sleep(3)
-print(f"=========== {TheChurchOfTheShatteredVoice.name} =========== ")
-print(f" | {TheChurchOfTheShatteredVoice.description}")
-print(" | A home to many lost soul who passed without a sound, there is a nun who will testify the purity of echo through hymns. She will sing a poety. First time appear always true, second time can wrong...")
-print(f"Character: \n{Seren}, {Seren.description}")
-print('')
-print('/// OBJECTIVE: Complete Seren Challenge ///')
+TheChurchOfTheShatteredVoice.inform_scenario()
 time.sleep(2)
 counter = 0
 if player.trait == "Wary":
@@ -711,4 +722,8 @@ while next_step == None:
 #Dialogue
 
 #=========The Hollow Choir Zone=========
-# Should I skip this
+TheListener = NPC("The Listener", "A mouthless nun of hymns.")
+CorruptedSurvivor = NPC("Corrupted Survivor", "A mouthless nun of hymns.")
+SilentZone = Location('name', 'description', 'hint', 'objective')
+SilentZone.add_character(TheListener)
+SilentZone.add_character(CorruptedSurvivor)

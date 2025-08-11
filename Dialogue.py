@@ -124,6 +124,10 @@ Dialogue = {
             "Text": "You and Ullin walked for 2 hours, through the debris, smoke, and fire.",
             "Duration": 5
         },
+        648:{
+            "Text": "",
+            "Duration": 1
+        },
         4:{
             "Text": "You emerge into pale light.",
             "Duration": 2
@@ -139,6 +143,10 @@ Dialogue = {
         7:{
             "Text": "Something weeps beneath the water, but the ripples never reach shore.",
             "Duration": 2
+        },
+        641:{
+            "Text": "",
+            "Duration": 1
         },
         8:{
             "Text": "[Ullin] Careful. The bridge doesn’t like indecision.",
@@ -188,6 +196,10 @@ Dialogue = {
         },
         6:{
             "Text": "[Ullin] Every Echo Zone demands a toll.\nHere, you must give up a truth. A real one.\nListen to the hymn. If it accepts, you pass.\nIf not... hope it reflects something kind.",
+            "Duration": 2
+        },
+        648:{
+            "Text": "",
             "Duration": 2
         },
         7:{
