@@ -45,3 +45,21 @@ class Maze(Location):
     
     def add_item(self, item):
         self.items = item
+
+class Zone():
+    def __init__(self, name, description, character, item):
+        self.name = name
+        self.description = description
+        self.character = character
+        self.item = item
+        self.linkedZone = []
+
+    def add_zone(self, zone):
+        self.linkedZone.append(zone)
+
+    def inform_zone(self):
+        print(f"=========== {self.name} =========== ")
+        print(self.description)
+
+    def print_name(self):
+        return self.name

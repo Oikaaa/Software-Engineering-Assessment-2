@@ -15,6 +15,7 @@
 # | 5/8/25: Completed the scenario minigame; The game will show the line and you have to remember it, later on it will appear back randomly and you need to find the different.
 # | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
 # | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
+# | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
 
 # Modules
 import time
@@ -25,6 +26,7 @@ from Classes.Characters import Enemy
 from Classes.Characters import NPC
 from Classes.Locations import Location
 from Classes.Locations import Maze
+from Classes.Locations import Zone
 from Dialogue import print_dialogue
 player = Character(input('Your name is? '))
 
@@ -457,7 +459,7 @@ def TrickRoom(room):#If they are in the trick room
                 time.sleep(1)
                 if picking == "1":
                     print('You picked up the Echo, it swallow the darkness around it.')
-                    player.add_inventory("itemInArea")
+                    player.add_inventory("Dark Echo")
                     Tricked_room_item == False #Player already picked up the item
                 else:
                     print('[...]')
@@ -504,6 +506,12 @@ while NextStep(current_room) is False:
 #=========Church of the Shattered Voice=========
 Seren = NPC("Seren", "A mouthless nun of hymns.")
 TheChurchOfTheShatteredVoice = Location("The Church of the Shattered Voice", "A church where lost soul stay, only the soud of truth can pass. This is also home of Seren, a nun of hymns.", "A home to many lost soul who passed without a sound, there is a nun who will testify the purity of echo through hymns. She will sing a poety. First time appear always true, second time can wrong...", "Complete Seren Challenge")
+
+Seren.add_dialogue("[Seren] You get that wrong, but don't worry, you can try again.")
+Seren.add_dialogue("[Seren] Your soul is on the eadge,...")
+Seren.add_dialogue("[Seren] Try to memorize it...")
+Seren.add_dialogue("[Seren] I don't think that is the right answer.")
+Seren.add_dialogue("[Seren] One more try, no more, no less")
 
 print_dialogue("The Church Prologue") #And epilogue for the previous ep
 
@@ -672,6 +680,9 @@ def hymn_display(hymns_list, counter):
 
 def clearOutput():
     os.system('cls' if os.name == "nt" else 'clear')
+
+def random_dialogue(character):
+    return print(character.print_dialogue(random.randint(0,4)))
 #FUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONSFUNCTIONS ^^^^
 
 print("Try to remember the hymms, if it appear for the first time, it's always right, if it's appear a second time, it might changed, and you need to find is it right or not")
@@ -692,7 +703,7 @@ while counter < 6:
             print("It was right...I guessed")
         else:
             clearOutput()
-            print("I don't think it's the answer...")
+            random_dialogue(Seren)
     else: # The function returned false, meaning that the player dont have to play this round
         print("[...] \n")
 
@@ -724,6 +735,16 @@ while next_step == None:
 #=========The Hollow Choir Zone=========
 TheListener = NPC("The Listener", "A mouthless nun of hymns.")
 CorruptedSurvivor = NPC("Corrupted Survivor", "A mouthless nun of hymns.")
-SilentZone = Location('name', 'description', 'hint', 'objective')
+SilentZone = Location('The Hollow Choir Zone', '“Some songs end in silence. Others end in teeth.”\n | The ground is made of fractured pews, arranged in endless rows, tilting upward into darkness.\n | Above you, the ceiling arches away into a cavern of bone-white stalactites that drip with black, ink-like water.\n | The Listener, is what dead pray for', 'Rythm is what feed The Listener... Destroy all the rythms and devour it soul with darkness...', 'DESTROY THE HOLLOW OF CHOIR')
 SilentZone.add_character(TheListener)
 SilentZone.add_character(CorruptedSurvivor)
+
+Safe_Haven = Zone("Safe Havens", "The air smells of coal and damp stone. Beyond the faded yellow safety line, the voices of the outside world fall silent, as if afraid to cross.", None, None) #Player start here
+Choir_Fields = Zone("Choir Field", "An endless field of pale grass, unmoving in a dead wind. Weather-worn choir stands dot the land, each holding a rotting hymnal that hums faintly when touched. The fragments and ehoes within can form something far more dangerous.", "Char", "Item") # Create a holy bible using the fragments and echoes
+Echo_Zone = Zone("Echo Zone", "A vast black-stone amphitheater where every sound returns softer and wrong. Faintly glowing crystals pulse like alien hearts, guiding you to gather every last echo before something else does.", None, None) # Use that Item to collect all the echo
+Silent_Zone = Zone("Silent Zone", "A ruin where dust hangs in the air and no wind stirs. The Listener patrols here, drawn to the smallest sound. Survive by moving in the rare, precious moments of silence.", TheListener, None) #The Listener is here, kill it by using all the item in inventory (in order)
+Hollow_Zone = Zone("Hollow Zone", "A cathedral of bone-white stone and shattered pews. Shadows ripple with unseen life. Here, Dark and Light Echoes may be joined into something new.", None, None) #Combine Dark Echo and Light Echo to form a new item
+#IF YOU ALREADY HAD THE DARK ECHO YOU CAN SKIP ALL THESE ROOM
+Dark_Zone = Zone("Dark Zone", "A black abyss of jagged stone where whispers crawl under your skin. The Dark Echo waits, feeding on fear and hesitation.", None, None) #Receive Dark Echo
+Light_Zone = Zone("Light Zone", "A chamber of endless mirrored walls bathed in searing light. Every step exposes what hides within you, and the Light will burn away falsehoods.", None, None) #You use Light to UNlock the Secret Zone
+Secret_Zone = Zone("Secret Zone", "A hidden sanctum of shifting corridors and looping halls. Solve the riddle that reshapes the room to earn the right to enter the Dark Zone.", None, None) # Solving Secret Zone To access Dark Zone
