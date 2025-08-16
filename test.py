@@ -6,7 +6,6 @@ from Classes.Locations import Maze
 import time
 import os
 import random
-
 from Classes.Locations import Zone
 player = Character('Guest')
 
@@ -29,52 +28,50 @@ Secret_Zone = Zone("Secret Zone", "A hidden sanctum of shifting corridors and lo
 
 def randomStructure():
     Zones = [Choir_Fields, Echo_Zone,Hollow_Zone,Dark_Zone,Light_Zone,Secret_Zone] #Never take Safe Havens and Silent Zone
-    n = random.randint(1,3)
-    if n >= 1:#REMMEBER TO CHHANGE THIS BACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        #4 Rooms lined to the Starting point
-        for i in range(4): #0, 1, 2, 3
-            Safe_Haven.add_zone(Zones.pop(random.randint(0,len(Zones)-1))) #E, W, N, S
-        #link a room to the west room from the starting point
-        RemainZone1 = Zones.pop(random.randint(0,1))
-        RemainZone2 = Zones.pop(0)
-        #WEST FROM START
-        for i in range(4):
-            if i == 0: #East
-                Safe_Haven.linkedZone[1].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the EAST of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
-            elif i == 2: #North
-                Safe_Haven.linkedZone[1].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the North of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
-            else:#West and South
-                Safe_Haven.linkedZone[1].add_zone(None) #Add none to the other direction
-        #NORTH FROM START
-        for i in range(4):
-            if i == 3: #South
-                Safe_Haven.linkedZone[2].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the SOUTH of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
-            elif i == 1: #West
-                Safe_Haven.linkedZone[2].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the WEST of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
-            else:#West and South
-                Safe_Haven.linkedZone[2].add_zone(None) #Add none to the other direction
-        #SOUTH FROM START
-        for i in range(4):
-            if i == 2: 
-                Safe_Haven.linkedZone[3].add_zone(Safe_Haven) #Add to north
-            else:
-                Safe_Haven.linkedZone[3].add_zone(None) #Add none to the other direction
-        #EAST FROM START
-        for i in range(4):
-            if i == 1: 
-                Safe_Haven.linkedZone[0].add_zone(Safe_Haven) 
-            elif i == 0: 
-                Safe_Haven.linkedZone[0].add_zone(RemainZone2) 
-            else:
-                Safe_Haven.linkedZone[0].add_zone(None) #Add none to the other direction
+    #4 Rooms lined to the Starting point
+    for i in range(4): #0, 1, 2, 3
+        Safe_Haven.add_zone(Zones.pop(random.randint(0,len(Zones)-1))) #E, W, N, S
+    #link a room to the west room from the starting point
+    RemainZone1 = Zones.pop(random.randint(0,1))
+    RemainZone2 = Zones.pop(0)
+    #WEST FROM START
+    for i in range(4):
+        if i == 0: #East
+            Safe_Haven.linkedZone[1].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the EAST of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
+        elif i == 2: #North
+            Safe_Haven.linkedZone[1].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the North of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
+        else:#West and South
+            Safe_Haven.linkedZone[1].add_zone(None) #Add none to the other direction
+    #NORTH FROM START
+    for i in range(4):
+        if i == 3: #South
+            Safe_Haven.linkedZone[2].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the SOUTH of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
+        elif i == 1: #West
+            Safe_Haven.linkedZone[2].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the WEST of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
+        else:#West and South
+            Safe_Haven.linkedZone[2].add_zone(None) #Add none to the other direction
+    #SOUTH FROM START
+    for i in range(4):
+        if i == 2: 
+            Safe_Haven.linkedZone[3].add_zone(Safe_Haven) #Add to north
+        else:
+            Safe_Haven.linkedZone[3].add_zone(None) #Add none to the other direction
+    #EAST FROM START
+    for i in range(4):
+        if i == 1: 
+            Safe_Haven.linkedZone[0].add_zone(Safe_Haven) 
+        elif i == 0: 
+            Safe_Haven.linkedZone[0].add_zone(RemainZone2) 
+        else:
+            Safe_Haven.linkedZone[0].add_zone(None) #Add none to the other direction
 
-        for i in range(4):
-            if i == 1: 
-                RemainZone2.add_zone(Safe_Haven.linkedZone[0])
-            elif i == 2:
-                RemainZone2.add_zone(Silent_Zone)
-            else:
-                RemainZone2.add_zone(None) #Add none to the other direction
+    for i in range(4):
+        if i == 1: 
+            RemainZone2.add_zone(Safe_Haven.linkedZone[0])
+        elif i == 2:
+            RemainZone2.add_zone(Silent_Zone)
+        else:
+            RemainZone2.add_zone(None) #Add none to the other direction
         
 def direction(dir):
     if dir == 0:
@@ -85,6 +82,46 @@ def direction(dir):
         return "North"
     elif dir == 3:
         return "South"
+    
+def Safe_Haven_Function():
+    print("Creatures can't cross the zone, I am safe here. At least I can easily accessed nearby Zone.")
+    return
+
+def Hollow_Choir_Function(): #Combine Echo
+    print('"The shadow and light had balanced out the universe for a millenia, the formation create a strong power of lives that gives living to things."')
+    if "Bright Echo" in player.inventory and "Dark Echo" in player.inventory:
+        print("You can feel a strong power come from nowhere, the echoes keep vibrating non-stop, trying to speak up something.")
+        #CODE HERE
+    else:
+        print("You are missing one of the sides...")
+    return
+
+def Light_Zone_Function():
+    print('The room filled with light that shine through every sounds')
+    print('You are holding it, you are holding the power')
+    print('This is the beginning after the end')
+    user_response = input('Would you like to use Bright Echo to unlock a hidden room?\n[1] Yes\n[2] No\n>>> ')
+    if user_response == "1":
+        print("The light absorbed the Echo. The zone started to rumble, wall collapsed and falling, bouncing back and one d-")
+        print("You wake up in the debrises the Bright Echo is in your hand, trying to tell you something.")
+    else:
+        print("Are you sure about that? Don't worry you can comeback anytime when you are ready.")
+    return
+
+def Secret_Zone_Function():#Puzzle ADD A KEY TO MAKE SURE THAT PLAYER HAD ALREADY FINISHED LIGHT ZONE
+    return
+
+def Dark_Zone_Function():#Dialogue, reset map # A KEY
+    return
+
+def Echo_Zone_Function():#Collect echo minigame
+    return
+
+def Choir_Fields_Function():#Holy Bible
+    return
+
+def Silent_Zone_Function():
+    return
 
     
 randomStructure()
@@ -92,9 +129,9 @@ randomStructure()
 currentZone = Safe_Haven
 while True:
     currentZone.inform_zone()
-    for zoneDir in range(len(currentZone.linkedZone)):
+    for zoneDir in range(len(currentZone.linkedZone)):#Print direction guide
         if currentZone.linkedZone[zoneDir] is not None:
-            print(f"{currentZone.linkedZone[zoneDir].print_name()} is at {direction(zoneDir)}") #Print in4
+            print(f'"{currentZone.linkedZone[zoneDir].print_name()}" is at {direction(zoneDir)}') #Print in4
 
     userResponse = input('\n[1] East \n[2] West \n[3] North \n[4] South\n[5] Examine the area\n>>> ')
     if userResponse == "1":
@@ -106,4 +143,10 @@ while True:
     elif userResponse == "4":
         currentZone = currentZone.linkedZone[3]
     else:
-        pass
+        if currentZone == Safe_Haven:
+            Safe_Haven_Function()
+        elif currentZone == Hollow_Zone:
+            Hollow_Choir_Function()
+        elif currentZone == Light_Zone:
+            Light_Zone_Function()
+    time.sleep(2)

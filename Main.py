@@ -16,6 +16,7 @@
 # | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
 # | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
 # | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
+# | 16/8/25: Add function for first 3 Zones
 
 # Modules
 import time
@@ -134,6 +135,7 @@ MarrowpointStation.add_character(TheWather)
 time.sleep(3)
 MarrowpointStation.inform_scenario()
 
+item = True #If the is something in the area
 next_step = False
 while next_step is not True:
     time.sleep(3)
@@ -142,7 +144,6 @@ while next_step is not True:
     print('')
 
     userResponse = input('>>> ')
-    item = True #If the is something in the area
     if userResponse == "1":
         if item == True: #If there is something in the area
             print('You found a strong bright Echo on the ground.')
@@ -748,3 +749,60 @@ Hollow_Zone = Zone("Hollow Zone", "A cathedral of bone-white stone and shattered
 Dark_Zone = Zone("Dark Zone", "A black abyss of jagged stone where whispers crawl under your skin. The Dark Echo waits, feeding on fear and hesitation.", None, None) #Receive Dark Echo
 Light_Zone = Zone("Light Zone", "A chamber of endless mirrored walls bathed in searing light. Every step exposes what hides within you, and the Light will burn away falsehoods.", None, None) #You use Light to UNlock the Secret Zone
 Secret_Zone = Zone("Secret Zone", "A hidden sanctum of shifting corridors and looping halls. Solve the riddle that reshapes the room to earn the right to enter the Dark Zone.", None, None) # Solving Secret Zone To access Dark Zone
+
+def randomStructure():
+    Zones = [Choir_Fields, Echo_Zone,Hollow_Zone,Dark_Zone,Light_Zone,Secret_Zone] #Never take Safe Havens and Silent Zone
+    #4 Rooms lined to the Starting point
+    for i in range(4): #0, 1, 2, 3
+        Safe_Haven.add_zone(Zones.pop(random.randint(0,len(Zones)-1))) #E, W, N, S
+    #link a room to the west room from the starting point
+    RemainZone1 = Zones.pop(random.randint(0,1))
+    RemainZone2 = Zones.pop(0)
+    #WEST FROM START
+    for i in range(4):
+        if i == 0: #East
+            Safe_Haven.linkedZone[1].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the EAST of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
+        elif i == 2: #North
+            Safe_Haven.linkedZone[1].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the North of THE ROOM THAT IS LINKED TO THE WEST of Safe Haven
+        else:#West and South
+            Safe_Haven.linkedZone[1].add_zone(None) #Add none to the other direction
+    #NORTH FROM START
+    for i in range(4):
+        if i == 3: #South
+            Safe_Haven.linkedZone[2].add_zone(Safe_Haven) #[English translate] Add Safe Haven zone to the SOUTH of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
+        elif i == 1: #West
+            Safe_Haven.linkedZone[2].add_zone(RemainZone1) #[English translate] Add the first Remain Zone to the WEST of THE ROOM THAT IS LINKED TO THE NORTH of Safe Haven
+        else:#West and South
+            Safe_Haven.linkedZone[2].add_zone(None) #Add none to the other direction
+    #SOUTH FROM START
+    for i in range(4):
+        if i == 2: 
+            Safe_Haven.linkedZone[3].add_zone(Safe_Haven) #Add to north
+        else:
+            Safe_Haven.linkedZone[3].add_zone(None) #Add none to the other direction
+    #EAST FROM START
+    for i in range(4):
+        if i == 1: 
+            Safe_Haven.linkedZone[0].add_zone(Safe_Haven) 
+        elif i == 0: 
+            Safe_Haven.linkedZone[0].add_zone(RemainZone2) 
+        else:
+            Safe_Haven.linkedZone[0].add_zone(None) #Add none to the other direction
+
+    for i in range(4):
+        if i == 1: 
+            RemainZone2.add_zone(Safe_Haven.linkedZone[0])
+        elif i == 2:
+            RemainZone2.add_zone(Silent_Zone)
+        else:
+            RemainZone2.add_zone(None) #Add none to the other direction
+        
+def direction(dir):
+    if dir == 0:
+        return "East"
+    elif dir == 1:
+        return "West"
+    elif dir == 2:
+        return "North"
+    elif dir == 3:
+        return "South"
