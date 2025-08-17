@@ -8,6 +8,7 @@ import os
 import random
 from Classes.Locations import Zone
 player = Character('Guest')
+player.add_inventory('Bright Echo')
 
 # Please NOTE that don't let the character ABILITY WASTED AND INVENTORY (iykyk)
 TheListener = NPC("The Listener", "A mouthless nun of hymns.")
@@ -65,6 +66,11 @@ def randomStructure():
         else:
             Safe_Haven.linkedZone[0].add_zone(None) #Add none to the other direction
 
+    RemainZone1.add_zone(Safe_Haven.linkedZone[2])
+    RemainZone1.add_zone(None)
+    RemainZone1.add_zone(None)
+    RemainZone1.add_zone(Safe_Haven.linkedZone[1])
+
     for i in range(4):
         if i == 1: 
             RemainZone2.add_zone(Safe_Haven.linkedZone[0])
@@ -82,37 +88,165 @@ def direction(dir):
         return "North"
     elif dir == 3:
         return "South"
-    
+
+LightZone = False
+SecretZone = False
+DarkZone = False
+HollowChoir = False
 def Safe_Haven_Function():
     print("Creatures can't cross the zone, I am safe here. At least I can easily accessed nearby Zone.")
     return
-
-def Hollow_Choir_Function(): #Combine Echo
-    print('"The shadow and light had balanced out the universe for a millenia, the formation create a strong power of lives that gives living to things."')
-    if "Bright Echo" in player.inventory and "Dark Echo" in player.inventory:
-        print("You can feel a strong power come from nowhere, the echoes keep vibrating non-stop, trying to speak up something.")
-        #CODE HERE
-    else:
-        print("You are missing one of the sides...")
-    return
-
+    
 def Light_Zone_Function():
-    print('The room filled with light that shine through every sounds')
-    print('You are holding it, you are holding the power')
-    print('This is the beginning after the end')
-    user_response = input('Would you like to use Bright Echo to unlock a hidden room?\n[1] Yes\n[2] No\n>>> ')
-    if user_response == "1":
-        print("The light absorbed the Echo. The zone started to rumble, wall collapsed and falling, bouncing back and one d-")
-        print("You wake up in the debrises the Bright Echo is in your hand, trying to tell you something.")
+    if LightZone is False:
+        print('The room filled with light that shine through every sounds')
+        print('You are holding it, you are holding the power')
+        print('This is the beginning after the end')
+        user_response = input('Would you like to use Bright Echo to unlock a hidden room?\n[1] Yes\n[2] No\n>>> ')
+        if user_response == "1":
+            print("The light absorbed the Echo. The zone started to rumble, wall collapsed and falling, bouncing back and one d-")
+            print("You wake up in the debrises the Bright Echo is in your hand, trying to tell you something.")
+            return True
+        else:
+            print("Are you sure about that? Don't worry you can comeback anytime when you are ready.")
+            return False
     else:
-        print("Are you sure about that? Don't worry you can comeback anytime when you are ready.")
-    return
+        return print("I've been here before...")
 
-def Secret_Zone_Function():#Puzzle ADD A KEY TO MAKE SURE THAT PLAYER HAD ALREADY FINISHED LIGHT ZONE
-    return
+def Secret_Zone_Function():#Puzzle 
+    if SecretZone is False:
+        if LightZone is True:
+            print('"Oh, hi there!"')
+            print('???')
+            print('"Im over here"')
+            print("Suddenly a voice came from darkness")
+            print("A figure that is completely covered in darkness, look like a person with two shadows.")
+            print('"I know it is weird but I know what you are looking for')
+            print('"I can see that you are holding one of the echo, and you are trying to find the rest.')
+            print('"Well, unlucky for you, you have missed your opportunity to get it before."')
+            print('"I am pretty sure it had appeared in the Flooded Bridge scenario before, but look like you had missed it."')
+            print('"I cant help you with that"')
+            print('"But I can give you a key, a key to open a room that you might want."')
+            print('"I not gonna ask much, just answer a feel questions from me, and I will give you the key to that room"')
+            print('"Bet?"')
+            userResponse2 = input("Accept the challenge?\n[1] Yes\n[2] No\n>>> ")
+            if userResponse2 == "1":
+                print('"Alright..."')
+            else:
+                return print('"...')
+            
+            # Riddle 1
+            next_step = False
+            while next_step is False:
+                print('"Im tall when Im young, Im short when Im old. what am I?"')
+                userResponse2 = input('C _ _ _ _ _\n>>> ').lower()
+                if userResponse2 == "candle" or userResponse2 == "andle":
+                    print('"Nice try, that was easy."')
+                    next_step = True
+                else:
+                    print('"Well, try again."')
+
+            # Riddle 2
+            next_step = False
+            while next_step is False:
+                print('"Pronounced as one letter, And written with three, two letters there are, and two only in me. I’m double, I’m single, I’m black blue and gray, I’m read from both ends, and the same either way. What am I?"')
+                userResponse2 = input('_ _ _\n>>> ').lower()
+                if userResponse2 == "eye":
+                    print('"Well played."')
+                    next_step = True
+                else:
+                    print('"Well, try again."')
+
+            # Riddle 3
+            next_step = False
+            while next_step is False:
+                print('"David`s father has three sons: Snap, Crackle and _____?"')
+                userResponse2 = input('>>> ').lower()
+                if userResponse2 == "david":
+                    print('"Alright, this one will be harder."')
+                    next_step = True
+                else:
+                    print('"Well, try again."')
+
+            # Riddle 4
+            next_step = False
+            while next_step is False:
+                print('"Where is the only place where today comes before yesterday?"')
+                userResponse2 = input('D _ _ _ _ _ n _ _ y\n>>> ').lower()
+                if userResponse2 == "dictionary":
+                    print('"I see, you are smart, last one."')
+                    next_step = True
+                else:
+                    print('"Well, try again."')
+
+            # Riddle 5
+            next_step = False
+            while next_step is False:
+                print('"What is 3/7 chicken, 2/3 cat, and 2/4 goat?"')
+                userResponse2 = input('>>> ').lower()
+                if userResponse2 == "chicago":
+                    print('"Well, you beat me."')
+                    next_step = True
+                else:
+                    print('"Well, try again."')
+
+            print('"It was pretty good, here is your key, go and destroy The Listener."')
+            print('The corrupted survivor gave you a corrupted, dark key.')
+            print('[...]')
+            return True
+        else:
+            return False
+    else:
+        return print("I've been here before...")
 
 def Dark_Zone_Function():#Dialogue, reset map # A KEY
-    return
+    if Dark_Zone is False:
+        if Secret_Zone is True:
+            if "Dark Echo" not in player.inventory:
+                #Code here
+                print("You've entered the Area")
+                print("Opposite from Light Zone, this place is filled with darkness in every corner of the zone")
+                print("But nothing can be darker than an orbs in centre")
+                print("A strong and power force trying to devour your soul, pulling everything toward it")
+                print("You are scared")
+                print("Terrified,")
+                print("Trying to runaway from the dark hole.")
+                print("But it was too late")
+                print("You can feel every muscles, tissues on your face slowly stretched out")
+                print("Your eyes popped out of its skull, pulling out your brain and everything blood vessels in it,")
+                print("Your body shattered into pieces that were stretch like a spaghetti,")
+                print("You can feel it, but you can't scream")
+                print("All you see, is just pure darkness.")
+
+                print("A light stare into your eyes, where it should not be there anymore.")
+                print("You are awake from the Safe Heaven, the beginning")
+                print("Thinking everything is just imagination")
+                print("But it's not")
+                print("You feel like the structure of the place had changed, it was not the same as the beginning")
+                print("And in your hand, holding tightly to the Dark Echo")
+                print("[YOU'VE OBTAINED DARK ECHO]")
+                player.add_inventory("Dark Echo")
+                randomStructure()
+                return True
+            else:
+                print("You already had the Echo, why do you need twice?")
+                return False
+        else:
+            return False
+    else:
+        return print("I've been here before...")
+    
+def Hollow_Choir_Function(): #Combine Echo
+    if HollowChoir is False:
+        print('"The shadow and light had balanced out the universe for a millenia, the formation create a strong power of lives that gives living to things."')
+        if "Bright Echo" in player.inventory and "Dark Echo" in player.inventory:
+            print("You can feel a strong power come from nowhere, the echoes keep vibrating non-stop, trying to speak up something.")
+            #CODE HERE
+        else:
+            print("You are missing one of the sides...")
+        return
+    else:
+        return print("I've been here before...")
 
 def Echo_Zone_Function():#Collect echo minigame
     return
@@ -125,28 +259,41 @@ def Silent_Zone_Function():
 
     
 randomStructure()
-
 currentZone = Safe_Haven
+previous_zone = currentZone
 while True:
-    currentZone.inform_zone()
-    for zoneDir in range(len(currentZone.linkedZone)):#Print direction guide
-        if currentZone.linkedZone[zoneDir] is not None:
-            print(f'"{currentZone.linkedZone[zoneDir].print_name()}" is at {direction(zoneDir)}') #Print in4
+    try:
+        currentZone.inform_zone()
+        for zoneDir in range(len(currentZone.linkedZone)):#Print direction guide
+            if currentZone.linkedZone[zoneDir] is not None:
+                print(f'"{currentZone.linkedZone[zoneDir].print_name()}" is at {direction(zoneDir)}') #Print in4
 
-    userResponse = input('\n[1] East \n[2] West \n[3] North \n[4] South\n[5] Examine the area\n>>> ')
-    if userResponse == "1":
-        currentZone = currentZone.linkedZone[0]
-    elif userResponse == "2":
-        currentZone = currentZone.linkedZone[1]
-    elif userResponse == "3":
-        currentZone = currentZone.linkedZone[2]
-    elif userResponse == "4":
-        currentZone = currentZone.linkedZone[3]
-    else:
-        if currentZone == Safe_Haven:
-            Safe_Haven_Function()
-        elif currentZone == Hollow_Zone:
-            Hollow_Choir_Function()
-        elif currentZone == Light_Zone:
-            Light_Zone_Function()
-    time.sleep(2)
+        previous_zone = currentZone
+        userResponse = input('\n[1] East \n[2] West \n[3] North \n[4] South\n[5] Examine the area\n>>> ')
+        if userResponse == "1":
+            currentZone = currentZone.linkedZone[0]
+        elif userResponse == "2":
+            currentZone = currentZone.linkedZone[1]
+        elif userResponse == "3":
+            currentZone = currentZone.linkedZone[2]
+        elif userResponse == "4":
+            currentZone = currentZone.linkedZone[3]
+        else:
+            if currentZone == Safe_Haven:
+                Safe_Haven_Function()
+            elif currentZone == Hollow_Zone:
+                HollowChoir = Hollow_Choir_Function()
+            elif currentZone == Light_Zone:
+                LightZone = Light_Zone_Function()
+            elif currentZone == Secret_Zone:
+                SecretZone = Secret_Zone_Function()
+            elif currentZone == Dark_Zone:
+                Dark_Zone = Dark_Zone_Function()
+                if Dark_Zone == True:
+                    currentZone = Safe_Haven
+            elif currentZone == Hollow_Zone():
+                currentZone = Hollow_Choir_Function()
+    except:
+        print("I don't think that is a way to go.")
+        currentZone = previous_zone
+    time.sleep(1)

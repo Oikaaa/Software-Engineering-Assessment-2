@@ -17,6 +17,7 @@
 # | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
 # | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
 # | 16/8/25: Add function for first 3 Zones
+# | 17/8/25: Add function for next 2 Zones
 
 # Modules
 import time
