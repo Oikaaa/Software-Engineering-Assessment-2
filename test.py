@@ -18,7 +18,7 @@ SilentZone.add_character(TheListener)
 SilentZone.add_character(CorruptedSurvivor)
 
 Safe_Haven = Zone("Safe Havens", "The air smells of coal and damp stone. Beyond the faded yellow safety line, the voices of the outside world fall silent, as if afraid to cross.", None, None) #Player start here
-Choir_Fields = Zone("Choir Field", "An endless field of pale grass, unmoving in a dead wind. Weather-worn choir stands dot the land, each holding a rotting hymnal that hums faintly when touched. The fragments and ehoes within can form something far more dangerous.", "Char", "Item") # Create a holy bible using the fragments and echoes
+Choir_Fields = Zone("Choir Field", "An endless field of pale grass, unmoving in a dead wind. Weather-worn choir stands dot the land, each holding a rotting hymnal that hums faintly when touched. The fragments and ehoes within can form something far more dangerous.", None, None) # Create a holy bible using the fragments and echoes
 Echo_Zone = Zone("Echo Zone", "A vast black-stone amphitheater where every sound returns softer and wrong. Faintly glowing crystals pulse like alien hearts, guiding you to gather every last echo before something else does.", None, None) # Use that Item to collect all the echo
 Silent_Zone = Zone("Silent Zone", "A ruin where dust hangs in the air and no wind stirs. The Listener patrols here, drawn to the smallest sound. Survive by moving in the rare, precious moments of silence.", TheListener, None) #The Listener is here, kill it by using all the item in inventory (in order)
 Hollow_Zone = Zone("Hollow Zone", "A cathedral of bone-white stone and shattered pews. Shadows ripple with unseen life. Here, Dark and Light Echoes may be joined into something new.", None, None) #Combine Dark Echo and Light Echo to form a new item
@@ -93,6 +93,8 @@ LightZone = False
 SecretZone = False
 DarkZone = False
 HollowChoir = False
+ChoirField = False
+SilentZone = False
 def Safe_Haven_Function():
     print("Creatures can't cross the zone, I am safe here. At least I can easily accessed nearby Zone.")
     return
@@ -111,7 +113,8 @@ def Light_Zone_Function():
             print("Are you sure about that? Don't worry you can comeback anytime when you are ready.")
             return False
     else:
-        return print("I've been here before...")
+        print("I've been here before...")
+        return True
 
 def Secret_Zone_Function():#Puzzle 
     if SecretZone is False:
@@ -197,7 +200,8 @@ def Secret_Zone_Function():#Puzzle
         else:
             return False
     else:
-        return print("I've been here before...")
+        print("I've been here before...")
+        return True
 
 def Dark_Zone_Function():#Dialogue, reset map # A KEY
     if Dark_Zone is False:
@@ -205,7 +209,9 @@ def Dark_Zone_Function():#Dialogue, reset map # A KEY
             if "Dark Echo" not in player.inventory:
                 #Code here
                 print("You've entered the Area")
+                time.sleep(1)
                 print("Opposite from Light Zone, this place is filled with darkness in every corner of the zone")
+                time.sleep(1)
                 print("But nothing can be darker than an orbs in centre")
                 print("A strong and power force trying to devour your soul, pulling everything toward it")
                 print("You are scared")
@@ -233,35 +239,155 @@ def Dark_Zone_Function():#Dialogue, reset map # A KEY
                 return False
         else:
             return False
-    else:
-        return print("I've been here before...")
+    else: 
+        print("I've been here before...")
+        return True
     
 def Hollow_Choir_Function(): #Combine Echo
     if HollowChoir is False:
         print('"The shadow and light had balanced out the universe for a millenia, the formation create a strong power of lives that gives living to things."')
         if "Bright Echo" in player.inventory and "Dark Echo" in player.inventory:
+            print("There is nothing here, just a deep and deadly void.")
             print("You can feel a strong power come from nowhere, the echoes keep vibrating non-stop, trying to speak up something.")
-            #CODE HERE
+            print("Suddenly, a voice telling you a story")
+            print("Everthing started of nothing, literally nothing")
+            print("Then, a dark matter came out from the void devour everything that is on its path.")
+            print("However, it was not the only matter in this empty space,")
+            print("A strong bright light, approaching towards it, trying to stop it from eating all the sound of this cruel world.")
+            print("Finnaly, they absorbed each other, giving and balancing out everything in the space, creating the first living for the place of nothingness.")
+            print("You are carrying one of them, you are the choosen one")
+            print("Would you like to combine the Echo, to receive a more extremely powerful orbs?")
+            userResponse3 = input('[1] Yes\n[2] No\n>>> ')
+            if userResponse3 == "1":
+                print("The orbs combined, an invincible compression forces push them into a single Echo")
+                print("It was darkly shining, that can kill your eyes under a second if you look at its darkness.")
+                print("[YOU'VE OBTAINED THE MATTERS OF THE BEGINNING]")
+                player.remove_inventory("Dark Echo")
+                player.remove_inventory("Bright Echo")
+                player.add_inventory("The Matter")
+            else:
+                print('[...]')
+                return False
+            return True
         else:
-            print("You are missing one of the sides...")
-        return
+            print("You are missing one of the cores...")
+        return False
     else:
-        return print("I've been here before...")
+        print("I've been here before...")
+        return True
 
 def Echo_Zone_Function():#Collect echo minigame
-    return
+    if "The Matter" in player.inventory:
+        print("The place is ruined")
+        print("You can see thousand of floating spirits in the limitless space.")
+        print("It is the source of echoes, that the Lsitener keeps in this place for consumming purpose.")
+        print("But if it digest too many of it, it be melted into pieces due to the heat of the past lives.")
+        print("Collect as much as you can, but at least 10 Echoes much be colelcted.")
+        print("You had The Matter, which can be use to attract the echoes")
+        #IDEA
+        print("[YOU'VE OBTAINED 10 LIFELESS ECHOES]")
+        player.add_inventory("10 Lifeless Echoes")
+        return
+    else:
+        print("You are not ready yet.")
+        return False
 
 def Choir_Fields_Function():#Holy Bible
-    return
+    if "10 Lifeless Echoes" in player.inventory:
+        print('"10 Echoes? That`s alot"')
+        print('"You may don`t know me, but you don`t have to."')
+        print('"Just lend me 10 Echoes and all your fragments, I will give you something better"')
+        print('* You gave all your fragments and echoes to the voice')
+        print('')
+        print('It gave back all the items in a strange bag')
+        print('Something in it shining through all the item')
+        print('A glory golden light came from a book.')
+        print("[YOU'VE OBTAINED HOLY BIBLE]")
+        player.add_inventory("Holy Bible")
+        return True
+    else:
+        return False
 
 def Silent_Zone_Function():
-    return
+    print('Your last stage of the journey')
+    print('A creature with thousand of ears growling in the corner of thr room')
+    print('It was waiting for someone to tell it a story')
+    print('A story that can`t never been told')
+    if ChoirField == True:
+        print('It noticed your presense')
+        print('Slowly standing up from debris comming towards you')
+        print('You have no where to run, you have to fight for your life.')
+        print('\nBut killing the Listener is not just as usual as the other')
+        print('You have to do it in order')
+        print('There is no record about how it will die, but there is a way that will guaranteed that it will never be able to comeback')
+        print('Blind it with the light, then let it consume the orbs. When it was still being blinded, swallow it with the darkness, and tell it the story that it always waiting for.')
+        print('Good Luck.')
+        print('\n')
+
+        next2 = False
+        while next2 is not True:
+            print("How would you like to start first?")
+            for item in range(len(player.inventory)):#Print all the items
+                print(f"[{item + 1}] {player.inventory[item]}")
+            choosing_weapon = input('>>> ')#Choose weapon
+
+            if choosing_weapon == "1":
+                print("The Listener was binded by the light, it is a good time to make a move.")
+                next2 = True
+            else:
+                print("The creature still standing.")
+
+        next2 = False
+        while next2 is not True:
+            print("How would you like to start first?")
+            for item in range(len(player.inventory)):#Print all the items
+                print(f"[{item + 1}] {player.inventory[item]}")
+            choosing_weapon = input('>>> ')#Choose weapon
+
+            if choosing_weapon == "2":
+                print("The creature devour all the echoes, it is dying in pain, the heat is slowly smelt the listening from inside out.")
+                next2 = True
+            else:
+                print("The creature still standing.")
+
+        next2 = False
+        while next2 is not True:
+            print("How would you like to start first?")
+            for item in range(len(player.inventory)):#Print all the items
+                print(f"[{item + 1}] {player.inventory[item]}")
+            choosing_weapon = input('>>> ')#Choose weapon
+
+            if choosing_weapon == "1":
+                print("The darkness is swallowing the creatire, trapping it in a prison that it can`t escape.")
+                next2 = True
+            else:
+                print("The creature is dying painful, but soon it will regenerate, try something else.")
+
+        next2 = False
+        while next2 is not True:
+            print("How would you like to start first?")
+            for item in range(len(player.inventory)):#Print all the items
+                print(f"[{item + 1}] {player.inventory[item]}")
+            choosing_weapon = input('>>> ')#Choose weapon
+
+            if choosing_weapon == "3":
+                print("The will from the book gave you something that you had lost")
+                print("You`re mouth has comeback where it used to be.")
+                print("Your words stabbed through the ears of the creature")
+                print("It is bleeding, flooding the whole room with flesh blood")
+                next2 = True
+            else:
+                print("One more chance.")
+        return True
+    else:
+        print("[You are not ready yet]")
+        return False
 
     
 randomStructure()
 currentZone = Safe_Haven
 previous_zone = currentZone
-while True:
+while SilentZone is not True:
     try:
         currentZone.inform_zone()
         for zoneDir in range(len(currentZone.linkedZone)):#Print direction guide
@@ -292,8 +418,16 @@ while True:
                 if Dark_Zone == True:
                     currentZone = Safe_Haven
             elif currentZone == Hollow_Zone():
-                currentZone = Hollow_Choir_Function()
+                HollowChoir = Hollow_Choir_Function()
+            elif currentZone == Echo_Zone:
+                Echo_Zone_Function()
+            elif currentZone == Choir_Fields:
+                ChoirField = Choir_Fields_Function()
+            elif currentZone == Silent_Zone:
+                SilentZone = Silent_Zone_Function()
     except:
-        print("I don't think that is a way to go.")
+        print("I don't think you can do that.")
         currentZone = previous_zone
     time.sleep(1)
+
+#END DIALOGUE

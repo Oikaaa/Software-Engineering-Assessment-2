@@ -1,7 +1,7 @@
 # I HAVE NO MOUTH, BUT I HAVE TO SCREAM
 # Developed by: Jimmy (Huy Bao Thang)
 # NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
-# Last Update: 5/8/2025
+# Last Update: 18/8/2025
 # Github source code: https://github.com/Oikaaa/Software-Engineering-Assessment-2/tree/main
 # Setting: 
 # | Fifty years ago, the world was obliterated by The Soundfall — a resonance event of unknown origin. It ruptured memory, time, and sound itself. Survivors emerged unable to speak. Others became Hollowed, empty shells filled only with static.
@@ -16,8 +16,9 @@
 # | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
 # | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
 # | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
-# | 16/8/25: Add function for first 3 Zones
-# | 17/8/25: Add function for next 2 Zones
+# | 16/8/25: Added function for first 3 Zones
+# | 17/8/25: Added function for next 2 Zones
+# | 18/8/25: Added all functions for all rooms
 
 # Modules
 import time

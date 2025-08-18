@@ -14,6 +14,9 @@ class Character:
     def add_fragment(self, fragment):
         self.fragments.append(fragment)
 
+    def remove_inventory(self, item):
+        self.inventory.remove(item)
+
 class NPC(Character): # Son of Character
     def __init__(self, name, description):
         super().__init__(name)
