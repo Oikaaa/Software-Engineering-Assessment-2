@@ -31,5 +31,16 @@ NOTE: PLEASE USE COMMON SENSE, DON'T TRY TO FIND BUGS
  
  | 5/8/25: Completed the scenario minigame; The game will show the line and you have to remember it, later on it will appear back randomly and you need to find the different. 
  
-| 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
+ | 7/8/25: Added more dialogue and player can now use their ability that they got in first scenario in some cases.
 
+ | 11/8/25: Make more function for some class, ultilize and minimize the repetition of some function
+
+ | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
+
+ | 16/8/25: Added function for first 3 Zones
+
+ | 17/8/25: Added function for next 2 Zones
+
+ | 18/8/25: Added all functions for all rooms, finished the gameplay; Dialogue tmr
+
+ | 19/8/25: Project finished
