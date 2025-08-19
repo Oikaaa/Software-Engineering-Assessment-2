@@ -18,7 +18,7 @@
 # | 13/8/25: Designing last scenario, added Zone class, random map structured created and player movement throught the zones.
 # | 16/8/25: Added function for first 3 Zones
 # | 17/8/25: Added function for next 2 Zones
-# | 18/8/25: Added all functions for all rooms, Dialogue tmr
+# | 18/8/25: Added all functions for all rooms, finished the gameplay; Dialogue tmr
 
 # Modules
 import time
@@ -731,11 +731,13 @@ while len(displayed_hymn) > 0: # Final check for all remain challenge, if there 
 print("[YOU'VE OBTAINED THE FRAGMENT OF SOUL]")
 player.add_fragment("Fragment Of Soul")
 
+print_dialogue("The Church Epilogue")
+
 next_step = None
 while next_step == None:
     next_step = input('[Enter to continue]')
 
-#Dialogue
+print_dialogue("SilentPro")
 
 #=========The Hollow Choir Zone=========
 TheListener = NPC("The Listener", "A mouthless nun of hymns.")
@@ -753,6 +755,9 @@ Hollow_Zone = Zone("Hollow Zone", "A cathedral of bone-white stone and shattered
 Dark_Zone = Zone("Dark Zone", "A black abyss of jagged stone where whispers crawl under your skin. The Dark Echo waits, feeding on fear and hesitation.", None, None) #Receive Dark Echo
 Light_Zone = Zone("Light Zone", "A chamber of endless mirrored walls bathed in searing light. Every step exposes what hides within you, and the Light will burn away falsehoods.", None, None) #You use Light to UNlock the Secret Zone
 Secret_Zone = Zone("Secret Zone", "A hidden sanctum of shifting corridors and looping halls. Solve the riddle that reshapes the room to earn the right to enter the Dark Zone.", None, None) # Solving Secret Zone To access Dark Zone
+
+SilentZone.inform_scenario()
+print('\n\n\n')
 
 def randomStructure():
     Zones = [Choir_Fields, Echo_Zone,Hollow_Zone,Dark_Zone,Light_Zone,Secret_Zone] #Never take Safe Havens and Silent Zone'
@@ -834,7 +839,7 @@ DarkZone = False
 HollowChoir = False
 EchoZone = False
 ChoirField = False
-SilentZone = False
+SilenTZone = False
 def Safe_Haven_Function():
     print("Creatures can't cross the zone, I am safe here. At least I can easily accessed nearby Zone.")
     return
@@ -1228,7 +1233,7 @@ randomStructure()
 currentZone = Safe_Haven
 previous_zone = currentZone
 echoes_collected = 0
-while SilentZone is not True:
+while SilenTZone is not True:
     try:
         print('')
         currentZone.inform_zone()
@@ -1264,7 +1269,7 @@ while SilentZone is not True:
             elif currentZone == Choir_Fields:
                 ChoirField = Choir_Fields_Function(echoes_collected)
             elif currentZone == Silent_Zone:
-                SilentZone = Silent_Zone_Function()
+                SilenTZone = Silent_Zone_Function()
         else:
             print("Invalid Input")
     except:
@@ -1272,4 +1277,4 @@ while SilentZone is not True:
         currentZone = previous_zone
     time.sleep(1)
 
-#END DIALOGUE
+print_dialogue("SilentEpi")

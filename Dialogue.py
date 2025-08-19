@@ -183,7 +183,7 @@ Dialogue = {
             "Duration": 2
         },
         3:{
-            "Text": "[YOU] What is this place?",
+            "Text": "[YOU] What is this place? (Sign language)",
             "Duration": 2
         },
         4:{
@@ -191,7 +191,7 @@ Dialogue = {
             "Duration": 4
         },
         5:{
-            "Text": "[YOU] What do I do here?",
+            "Text": "[YOU] What do I do here? (Sign language)",
             "Duration": 2
         },
         6:{
@@ -215,7 +215,7 @@ Dialogue = {
             "Duration": 2
         },
         10:{
-            "Text": "[You] So what should I do now?",
+            "Text": "[You] So what should I do now? (Sign language)",
             "Duration": 2
         },
         11:{
@@ -226,7 +226,77 @@ Dialogue = {
             "Text": "[YOU] ...",
             "Duration": 2
         },
-    }
+    },
+    "The Church Epilogue":{
+        1:{
+            "Text": "“The hymn is whole… but the choir is gone. Only silence remains.”",
+            "Duration": 2
+        },
+        2:{
+            "Text": "“The song has ended. Beyond this place, there is no prayer left to shield you. Only It waits.”",
+            "Duration": 2
+        },
+        3:{
+            "Text": "[The stained glass cracks, spilling darkness into the pews.]",
+            "Duration": 2
+        },
+        4:{
+            "Text": "“Do not waste your voice now. Every word you speak, The Listener will hear. If you carry the echoes, it will come for you.”",
+            "Duration": 2
+        },
+        5:{
+            "Text": "[The church doors creak open to a vast, lightless expanse.]",
+            "Duration": 2
+        },
+        6:{
+            "Text": "[Seren] Step beyond the hymn… and into the silence.",
+            "Duration": 2
+        },
+    },
+    "SilentPro":{
+        1:{
+            "Text": "You have made this far",
+            "Duration": 2
+        },
+        2:{
+            "Text": "This is your last stay",
+            "Duration": 2
+        },
+        3:{
+            "Text": "I guess, after this we will never see each other again",
+            "Duration": 2
+        },
+        4:{
+            "Text": "Have fun",
+            "Duration": 2
+        },
+    },
+    "SilentEpi":{
+        1:{
+            "Text": "You place the last echo into the circle of shattered stone. The fragments hum, a hollow vibration that makes your bones ache.",
+            "Duration": 2
+        },
+        2:{
+            "Text": "The Listener stops. Its faceless head tilts, as if straining to understand. For the first time, it does not move closer.",
+            "Duration": 2
+        },
+        3:{
+            "Text": "“It hears what it cannot consume. The hymn is complete. It is no longer yours… it belongs to all that were lost.”",
+            "Duration": 2
+        },
+        4:{
+            "Text": "The echoes flare, black and white light colliding into a blinding silence. The Listener convulses, its thousand eyes spilling like tears across the floor. It reaches out, not to strike, but to beg — a hand with no mouth to speak its grief.",
+            "Duration": 2
+        },
+        5:{
+            "Text": "Then it unravels, dissolving into nothing but a faint ripple of sound.",
+            "Duration": 2
+        },
+        6:{
+            "Text": "The silence afterward is heavier than any scream.",
+            "Duration": 2
+        },
+    },
 }
 
 def print_dialogue(current_scenario):#Printing dialogues function
