@@ -46,10 +46,9 @@ class Maze(Location):
     def add_item(self, item):
         self.items = item
 
-class Zone():
+class Zone(Location):
     def __init__(self, name, description, character, item):
-        self.name = name
-        self.description = description
+        super.__init__(name, description, None, None)
         self.character = character
         self.item = item
         self.linkedZone = []
