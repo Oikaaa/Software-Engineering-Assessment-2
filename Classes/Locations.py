@@ -29,7 +29,7 @@ class Location:
 
 class Maze(Location):
     def __init__(self, map, description):
-        super().__init__(None, description, None)
+        super().__init__(None, description, None, None)
         self.map = map
         self.linked_rooms = []#North South, East, West
         self.items = None
@@ -48,7 +48,7 @@ class Maze(Location):
 
 class Zone(Location):
     def __init__(self, name, description, character, item):
-        super.__init__(name, description, None, None)
+        super().__init__(name, description, None, None)
         self.character = character
         self.item = item
         self.linkedZone = []
